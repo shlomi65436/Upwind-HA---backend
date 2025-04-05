@@ -1,0 +1,20 @@
+# Core requirements
+fastapi==0.109.1
+uvicorn==0.27.0
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.25
+
+# System monitoring
+psutil==5.9.6
+watchdog==3.0.0
+
+# Networking/packet analysis
+scapy==2.5.0
+pyshark==0.4.5
+
+# Additional utilities
+python-dateutil==2.8.2
+requests==2.31.0
+pydantic==2.6.1
