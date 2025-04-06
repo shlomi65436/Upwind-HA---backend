@@ -1,13 +1,13 @@
-from typing import List
-from urllib.parse import urlparse
-import uuid
-from fastapi import FastAPI, UploadFile, File, Form
-import re
-import os
-import subprocess
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
-from fastapi.middleware.cors import CORSMiddleware
+from typing import List #list
+from urllib.parse import urlparse #url domian
+import uuid # uniqe id for files
+from fastapi import FastAPI, UploadFile, File, Form #form for html not json/ file for file as paramerter/upload for server
+import re # regex
+import os # operation system
+import subprocess # run cli from python
+from sqlalchemy import create_engine, text #connect for db / text for raw SQL
+from sqlalchemy.orm import sessionmaker # Session with db for SELECT FROM
+from fastapi.middleware.cors import CORSMiddleware #CORS for limit
 
 app = FastAPI()
 
@@ -25,7 +25,6 @@ app.add_middleware(
 
 DOMAINS = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com","amazon.com", "paypal.com", "microsoft.com", "apple.com"]
 URGENT_KEYWORDS = ["urgent", "immediately", "action required", "verify your account","account suspended", "click below", "password expired", "security alert"]
-IP_URL_REGEX = r"http[s]?://\d+\.\d+\.\d+\.\d+"
 URL_REGEX = r"http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+"
 LEVENSHTEIN_THRESHOLD = 3
 
@@ -181,7 +180,7 @@ create_users_table()
 async def test_sql_injection(username: str = Form(...), password: str = Form(...)):
     db = SessionLocal()
     try:
-        # ⚠️ VULNERABLE QUERY (user input directly inserted into SQL)
+        # VULNERABLE QUERY
         query = text(f"SELECT * FROM users WHERE username='{username}' AND password='{password}'")
         result = db.execute(query).fetchall()
 
@@ -196,7 +195,7 @@ async def test_sql_injection(username: str = Form(...), password: str = Form(...
 async def secure_sql_injection(username: str = Form(...), password: str = Form(...)):
     db = SessionLocal()
     try:
-        # ✅ SECURE QUERY (Uses parameterized query)
+        # SECURE QUERY (Uses parameterized query)
         query = text("SELECT * FROM users WHERE username=:username AND password=:password")
         result = db.execute(query, {"username": username, "password": password}).fetchall()
 

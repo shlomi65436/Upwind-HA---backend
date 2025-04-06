@@ -1,3 +1,4 @@
+# ubuntu latest vesion (os)
 FROM ubuntu:latest
 
 # Install required system dependencies
@@ -8,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     lsof curl wget nmap && \
     rm -rf /var/lib/apt/lists/*
 
-# Create a virtual environment
+# Create a virtual environment for python
 RUN python3 -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
